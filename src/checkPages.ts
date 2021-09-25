@@ -16,6 +16,7 @@ const handleStockAvailability = async (
     console.log(`Still no stock for ${link.name}`);
     return;
   }
+
   await sendMessage(
     `🚨 ${" "}There might be a PS5 (${link.name}) in stock at ${link.url}`,
     page
@@ -38,62 +39,55 @@ export const checkPages = async () => {
     const page = await browserContext.newPage();
     await page.goto(link.url);
 
-    if (link.type === LinkType.AMAZON) {
-      if (link.dataDefaultAsin) {
-        const variantButton = await page.$(
-          `li[data-defaultasin=${link.dataDefaultAsin}] button`
-        );
-        if (variantButton) {
-          // There might be some cookies banners or modals, we ignore them
-          await variantButton.click({ force: true });
-          // FIXME: Next assertion is done before page reload for some reason, so we wait
-          await sleep(1500);
-        }
-      }
+    if (link.type === LinkType.FNAC) {
       const addToCartButton = await page.$(
-        "#desktop_buybox_feature_div #addToCart input#add-to-cart-button"
+        '.ff-button-label:has-text("Adicionar ao Cesto")'
       );
 
-      const availabilitySuccessLabel = await page.$(
-        "#availability .a-color-success"
-      );
       await handleStockAvailability(
         link,
-        !!addToCartButton && !!availabilitySuccessLabel,
+        !!addToCartButton,
         page
       );
     }
 
     if (link.type === LinkType.MEDIAMARKT) {
-      const title = await page.textContent('[data-test="product-title"]');
+      const actionStr = await page.innerText('#AddToCartText');
+
       await handleStockAvailability(
         link,
-        !!(!!title && title.includes("SONY PlayStation 5")),
+        actionStr.toLowerCase().trim() === 'comprar',
         page
       );
     }
 
-    if (link.type === LinkType.CYBERPORT) {
-      const title = await page.textContent(
-        '[title="Mehr Informationen zum Produkt"]'
+    if (link.type === LinkType.WORTEN) {
+      await sleep(1500);
+
+      const cookiesButton = await page.$('.w-button-primary');
+      const cookiesButtonStr = await cookiesButton?.innerText();
+
+      if (cookiesButtonStr?.toLowerCase().trim() === 'aceitar tudo') {
+        await cookiesButton?.click({ force: true });
+        await sleep(1500);
+      }
+
+      const buyButton = await page.$(
+        '.w-button-primary.qa-product-options__add-cart-linkto.w-checkout-button.iss-checkout-button'
       );
+
       await handleStockAvailability(
         link,
-        !!(!!title && title.includes("Sony PlayStation 5")),
+        !!buyButton,
         page
       );
     }
 
-    if (link.type === LinkType.GAMESTOP) {
-      const cards = await page.$$(".gameCardStyle");
-      const hasMoreCards = cards && cards.length > 5;
-      await handleStockAvailability(link, hasMoreCards, page);
+    if (link.type === LinkType.REPLAY) {
+      const buyButton = await page.$(".gr-stock.gr-stock-success");
+      await handleStockAvailability(link, !!buyButton, page);
     }
 
-    if (link.type === LinkType.EURONICS) {
-      const addToCartButton = await page.$("#buybox--button");
-      await handleStockAvailability(link, !!addToCartButton, page);
-    }
     await page.close();
   }
 
