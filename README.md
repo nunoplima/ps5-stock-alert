@@ -1,10 +1,8 @@
-# Be smart about hunting for a PS5
+# PS5 alert
 
-## Stop wasting your time on refreshing those pages.
+Code forked from the awesome work here: https://github.com/matyushen/ps5-stock-alert
 
-A simple app that will check a given list of Amazon's (and other stores) pages for PS5 stock. Sends notifications to Telegram when the stock is detected. Runs on a schedule in GitHub Actions workflow and can be run locally for a more precise execution.
-
-Inspired by a great [episode](https://syntax.fm/show/311/hasty-treat-how-would-we-script-a-ps5-buying-bot) on Syntax podcast.
+If your on Windows WSL2 follow this blog post (we ain't using cypress, but it still apllies): https://nickymeuleman.netlify.app/blog/gui-on-wsl2-cypress
 
 Don't forget to create an `.env` file in the root:
 
