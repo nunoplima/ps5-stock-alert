@@ -1,5 +1,5 @@
 import { links, Link, LinkType } from "./links";
-import { sendMessage } from "./sendMessage";
+import { sendAlert } from "./sendAlert";
 import { chromium, Page } from "playwright";
 
 const sleep = (ms: number) =>
@@ -17,7 +17,7 @@ const handleStockAvailability = async (
     return;
   }
 
-  await sendMessage(
+  await sendAlert(
     `🚨 ${" "}There might be a PS5 (${link.name}) in stock at ${link.url}`,
     page
   );

@@ -9,4 +9,8 @@ Don't forget to create an `.env` file in the root:
 ```dotenv
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_CHAT_ID=
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
+TWILIO_MESSAGING_SERVICE_ID=
+SMS_TO=
 ```
