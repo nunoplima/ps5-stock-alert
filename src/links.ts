@@ -14,13 +14,8 @@ export enum LinkType {
 
 export const links: Link[] = [
   {
-    name: "Fnac - Returnal-Ratchet",
-    url: "https://www.fnac.pt/Bundle-P55-Standard-Returnal-Ratchet-Consola-Consola/a9139512",
-    type: LinkType.FNAC,
-  },
-  {
-    name: "Fnac - Spideman-Miles-Morales",
-    url: "https://www.fnac.pt/PS5-Standard-Spideman-Miles-Morales-Sackboy-A-Big-Adventure-Consola-Consola/a9030118",
+    name: "Fnac",
+    url: "https://www.fnac.pt/Consola-Sony-PlayStation-5-Edicao-Standard-Consola-Consola/a8081172",
     type: LinkType.FNAC,
   },
   {
