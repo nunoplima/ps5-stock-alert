@@ -88,6 +88,26 @@ export const checkPages = async () => {
       await handleStockAvailability(link, !!buyButton, page);
     }
 
+    if (link.type === LinkType.CORTE_INGLES) {
+      await sleep(1500);
+
+      const cookiesButton = await page.$('#cookies-agree');
+      const cookiesButtonStr = await cookiesButton?.innerText();
+
+      if (cookiesButtonStr?.toLowerCase().trim() === 'aceitar') {
+        await cookiesButton?.click({ force: true });
+        await sleep(1500);
+      }
+
+      const actionStr = await page.innerText('#js_add_to_cart_desktop');
+
+      await handleStockAvailability(
+        link,
+        actionStr.toLowerCase().trim() === 'adicionar ao carrinho',
+        page
+      );
+    }
+
     await page.close();
   }
 

@@ -10,6 +10,7 @@ export enum LinkType {
   MEDIAMARKT = "MEDIAMARKT",
   WORTEN = "WORTEN",
   REPLAY = "REPLAY",
+  CORTE_INGLES = "CORTE_INGLES"
 }
 
 export const links: Link[] = [
@@ -32,5 +33,10 @@ export const links: Link[] = [
     name: "Gaming Replay",
     url: "https://www.gamingreplay.com/pt/consolas-ps5/22026-consola-playstation-5-ps5-711719396604.html",
     type: LinkType.REPLAY,
+  },
+  {
+    name: "El Corte Inglês",
+    url: "https://www.elcorteingles.pt/gaming/A37046604-consola-playstation-5/",
+    type: LinkType.CORTE_INGLES,
   },
 ];
