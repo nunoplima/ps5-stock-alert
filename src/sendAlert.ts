@@ -17,16 +17,19 @@ const twilioClient = new twilio(
 const sendTwilioMessage = async (message: string): Promise<void> => {
   if (!twilioClient) return;
 
-  try {
-    const payload = {
-      body: message,
-      messagingServiceSid: process.env.TWILIO_MESSAGING_SERVICE_ID,
-      to: process.env.SMS_TO,
-    };
-    await twilioClient.messages.create(payload);
-    console.log(message);
-  } catch {
-    throw new Error('Oops somethings went wrong with the Twilio msg');
+  const sendTo = (process.env.SMS_TO as string).split('_')
+
+  for (const to of sendTo) {
+    try {
+      const payload = {
+        body: message,
+        messagingServiceSid: process.env.TWILIO_MESSAGING_SERVICE_ID,
+        to,
+      };
+      await twilioClient.messages.create(payload);
+    } catch {
+      throw new Error('Oops somethings went wrong with the Twilio msg');
+    }
   }
 };
 
