@@ -20,6 +20,11 @@ export const links: Link[] = [
     type: LinkType.FNAC,
   },
   {
+    name: "Fnac",
+    url: "https://www.fnac.pt/PS5-Digital-Dualsense-Headset-Consola-Consola/a9397412#st=ps5+&ct=Todos+os+produtos&t=p",
+    type: LinkType.FNAC,
+  },
+  {
     name: "Media Markt",
     url: "https://mediamarkt.pt/products/consola-playstation-5",
     type: LinkType.MEDIAMARKT,
